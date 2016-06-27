@@ -1,20 +1,14 @@
 
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
-/**
- * Shared Preferences Class, simple save and get data from android SharedPreferences
- * 
- * @author mahdi pishguy
- * @update ‎Thursday, ‎January ‎22, ‎2015
- */
 public class SP {
 
-    private static SP _singletonInstance;
+    private static SP                _singletonInstance;
+    private        SharedPreferences preferences;
 
-
-    private SP() {}
-
+    private SP() {
+    }
 
     public static synchronized SP getInstance() {
         if (_singletonInstance == null)
@@ -22,11 +16,9 @@ public class SP {
         return _singletonInstance;
     }
 
-
     private SharedPreferences getPrefs() {
-        return G.context.getSharedPreferences("Tsms", Context.MODE_PRIVATE);
+        return preferences = PreferenceManager.getDefaultSharedPreferences(SignalApplication.getContext());
     }
-
 
     public String getString(SharedPrefsTypes propertyName) {
         return getPrefs().getString(propertyName.toString(), "");
@@ -74,6 +66,6 @@ public class SP {
 
 
     public enum SharedPrefsTypes {
-        LoginStats
+        Password, Username, Permissian, Login
     }
 }
